@@ -1,0 +1,10 @@
+@ 8:00 lecture 1
+
+diffrence between declarative knowledge and imparitive knowledge
+declarative knowledge are statments of fact. 
+imparitive knowledge is the "how-to" or recipe
+	1. sequence of steps
+	2. flow of control, process of specefiying when steps occur
+	3. a way to determin when to stop
+:
+
