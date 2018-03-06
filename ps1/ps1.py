@@ -1,9 +1,8 @@
 annual_salary = input("Please input your annual salary: ")
-portion_saved = input("Please input your portion saved: ")
+annual_salary = float(annual_salary)
 #total_cost = input("Please input the total cost: ")
 #semi_annual_raise = input("Please input semi annual raise as a decimal: ")
 current_savings = 0
-monthly_add = annual_salary/12 * portion_saved
 semi_annual_raise = .07
 total_cost = 1000000
 r = 0.04
@@ -40,10 +39,35 @@ while (portion_down_payment > current_savings):
         i += 1
 print("Number of months: ", i)
 """
-while (i < 36) and ((current_savings > portion_down_payment + 100) or (current_savings < portion_down_payment - 100)):
-    i += 1
-    current_savings += monthly_add * 2
+minimum = float(1)
+maximum = float(10000)
+bisection = float(5000)
+cycleNumbers = 1
+
+while ((current_savings > portion_down_payment + 100) or (current_savings < portion_down_payment - 100)):
+    if annual_salary*3 < portion_down_payment:
+        print('This will not work')
+        break
+    print(minimum, maximum, bisection)
+    current_savings = 0
+    monthly_add = annual_salary/12 * (bisection / 10000) 
+    for j in range(36):
+        current_savings += current_savings*r/12
+        current_savings += monthly_add
     print(current_savings, i)
-print("current_savings: ", current_savings)
-print("goal           : ", portion_down_payment)
+    if current_savings < portion_down_payment - 100:
+        minimum = bisection
+        
+        print('Moved the minimum to the middle...')
+    else:
+        maximum = bisection
+        print('Moved the maximum to the middle...')
+    print("current_savings: ", current_savings)
+    print("goal           : ", portion_down_payment)
+    bisection = (maximum+minimum)/2
+    a = input(" ")
+    cycleNumbers += 1
+print (bisection/10000)
+print (cycleNumbers)
+
 
