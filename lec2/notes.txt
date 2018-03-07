@@ -1,0 +1,6 @@
+python will allow + between strings, but only strings. Can not + diffrent types.
+to seperate items in a print statment you can also use ,. It allows diffrent types but will instert a space between each instance.
+Strings will also allow * which will repeat the string n times
+range (start, stop, step)
+stop - 1
+
