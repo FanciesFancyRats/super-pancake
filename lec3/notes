@@ -1,0 +1,8 @@
+string allow index s[n] will also take negative values starting at the end
+slicing [start:stop], [start:stop:step]
+if you leave spaces empty 
+strings are immutable and cannot be modified
+s = "hello"
+s[0] = 'y' will give a syntax error
+to perform that action you can use the workaround:
+s = 'y'+s[1:len(s)]
