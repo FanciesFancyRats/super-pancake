@@ -102,8 +102,14 @@ def get_available_letters(letters_guessed):
       yet been guessed.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
-    
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    avaliable_letters = []
+    for i in range(len(alphabet)):
+        if not alphabet[i] in letters_guessed:
+            avaliable_letters.append(alphabet[i])
+    print(avaliable_letters)
+
+        
     
 
 def hangman(secret_word):
@@ -132,7 +138,24 @@ def hangman(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    
+    letters_guessed = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] 
+    secret_list = []
+    for letter in range(len(secret_word)):
+        secret_list.append(secret_word[letter])
+
+    guess = 6
+    get_guessed_word(letters_guessed, secret_word)
+    get_available_letters(letters_guessed)
+    print(guess)
+    guess = input('Guess a letter: ')
+    if guess in secret_list:
+        print("Correct")
+    else:
+        print("Incorrect")
+        guess -= 1
+        print(guess, "guesses left")
+
 
 
 
@@ -218,9 +241,7 @@ if __name__ == "__main__":
     # uncomment the following two lines.
     letters_guessed = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] 
     secret_word = choose_word(wordlist)
-    is_word_guessed(secret_word, letters_guessed)
-    get_guessed_word(secret_word, letters_guessed)
-    #hangman(secret_word)
+    hangman(secret_word)
 
 ###############
     
