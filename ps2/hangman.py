@@ -138,23 +138,24 @@ def hangman(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    
+    guessesLeft = 6
+    while (guessesLeft > 0) ##needs indented
     letters_guessed = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] 
-    secret_list = []
+
     for letter in range(len(secret_word)):
         secret_list.append(secret_word[letter])
 
-    guess = 6
+
     get_guessed_word(letters_guessed, secret_word)
     get_available_letters(letters_guessed)
-    print(guess)
+    print(guessesLeft)
     guess = input('Guess a letter: ')
     if guess in secret_list:
         print("Correct")
     else:
         print("Incorrect")
-        guess -= 1
-        print(guess, "guesses left")
+        guessesLeft -= 1
+        print(guessesLeft, "guesses left")
 
 
 
