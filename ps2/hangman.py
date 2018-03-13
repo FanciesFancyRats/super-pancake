@@ -114,7 +114,7 @@ def get_available_letters(letters_guessed):
     for i in range(len(alphabet)):
         if not alphabet[i] in letters_guessed:
             avaliable_letters.append(alphabet[i])
-    print(avaliable_letters)
+    #print(avaliable_letters)
     return avaliable_letters
 
         
@@ -146,7 +146,11 @@ def hangman(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
+
+    letters_display = ''
+    letters_display_list = []
     guessesLeft = 6
+    avaliable_letters_string = ''
     warnings = 3
     secret_list = []
     letters_guessed = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] 
@@ -161,21 +165,22 @@ def hangman(secret_word):
             secret_list.append(secret_word[letter])
 
 
-        guessed_word = get_guessed_word(secret_word,letters_guessed)
-        if not '_' in guessed_word:
-            break
+       
 
         avaliable_letters = get_available_letters(letters_guessed)
-        print(avaliable_letters)
-        avalaible_letters_string = avalaible_letters.join('')
-        print("Avaliable letters: ", avaliable_letters_string)
+        avalible_letters_string = ''.join(avaliable_letters)
+        print("Avaliable letters: ", avalible_letters_string)
+
         print(guessesLeft)
-        guess = input('Guess a letter: ')
+        guess = input('Please guess a letter: ')
         letters_guessed.append(guess)
         print(letters_guessed)
         if guess in secret_list:
            
-            print("Correct")
+            
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print("Good guess:", letters_display) 
         else:
             print("Incorrect")
             guessesLeft -= 1
