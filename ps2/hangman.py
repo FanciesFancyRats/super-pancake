@@ -157,6 +157,7 @@ def hangman(secret_word):
     print("Welcome to hangman, I'm thinking of a word that is,", len(secret_word), "letters long.")
     print("You have", warnings, "warnings left.")
     while (guessesLeft > 0): 
+        
         print('-------------------------')
         print(secret_word)
         
@@ -175,14 +176,20 @@ def hangman(secret_word):
         guess = input('Please guess a letter: ')
         letters_guessed.append(guess)
         print(letters_guessed)
-        if guess in secret_list:
-           
-            
-            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
-            letters_display = ' '.join(letters_display_list)
+        letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+        letters_display = ' '.join(letters_display_list)
+        if guess in letters_guessed:
+            print("You have already guessed: ", guess)
+            if warnings > 0:
+                warnings -= 1
+                print("You have", warnings, "warnings left")
+            else:
+                print("You have no warnings left, so you loose one guess:", letters_display)
+                guessesLeft -= 1 
+        elif guess in secret_list:
             print("Good guess:", letters_display) 
         else:
-            print("Incorrect")
+            print("Incorrect", letters_display)
             guessesLeft -= 1
             print(guessesLeft, "guesses left")
 
