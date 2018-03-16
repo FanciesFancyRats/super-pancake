@@ -110,6 +110,7 @@ def get_available_letters(letters_guessed):
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
     alphabet = 'abcdefghijklmnopqrstuvwxyz'
+
     avaliable_letters = []
     for i in range(len(alphabet)):
         if not alphabet[i] in letters_guessed:
@@ -153,7 +154,7 @@ def hangman(secret_word):
     avaliable_letters_string = ''
     warnings = 3
     secret_list = []
-    letters_guessed = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] 
+    letters_guessed = [] 
     print("Welcome to hangman, I'm thinking of a word that is,", len(secret_word), "letters long.")
     print("You have", warnings, "warnings left.")
     while (guessesLeft > 0): 
@@ -174,25 +175,65 @@ def hangman(secret_word):
 
         print(guessesLeft)
         guess = input('Please guess a letter: ')
-        letters_guessed.append(guess)
-        print(letters_guessed)
-        letters_display_list = get_guessed_word(secret_word ,letters_guessed)
-        letters_display = ' '.join(letters_display_list)
+        guess = guess.lower()
+       
         if guess in letters_guessed:
-            print("You have already guessed: ", guess)
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print("You have already guessed: ", guess, letters_display)
             if warnings > 0:
                 warnings -= 1
                 print("You have", warnings, "warnings left")
             else:
-                print("You have no warnings left, so you loose one guess:", letters_display)
+                print("You have no warnings left, so you loose one guess")
                 guessesLeft -= 1 
+        elif not guess in alphabet_list:
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print(guess)
+            print(alphabet_list)
+            print("Guess is not valid, try again.")
+            if warnings > 0:
+                warnings -= 1
+                print("You have", warnings, "warnings left")
+            else:
+                print("You have no warnings left, so you loose one guess")
+                guessesLeft -= 1
+        elif len(guess)  > 1:
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print(guess)
+            print(alphabet_list)
+            print("Guess is not valid, try again.")
+            if warnings > 0:
+                warnings -= 1
+                print("You have", warnings, "warnings left")
+            else:
+                print("You have no warnings left, so you loose one guess")
+                guessesLeft -= 1
+            
         elif guess in secret_list:
+            letters_guessed.append(guess)
+            print(letters_guessed)
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
             print("Good guess:", letters_display) 
         else:
+            letters_guessed.append(guess)
+            print(letters_guessed)
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
             print("Incorrect", letters_display)
+            
             guessesLeft -= 1
+            if guess in vowel_list:
+                guessesLeft -= 1
             print(guessesLeft, "guesses left")
-
+        if not "_" in letters_display_list:
+            print("Congratulations, you win")
+            break
+    if guessesLeft < 1:
+        print("Sorry you lost. The word was: ", secret_word)
 
 
 
@@ -276,7 +317,12 @@ if __name__ == "__main__":
 
     # To test part 2, comment out the pass line above and
     # uncomment the following two lines.
-    letters_guessed = ['a', 'b', 'c', 'd', 'e', 'f', 'g'] 
+    alphabet = 'abcdefghijklmnopqrstuvwxyz'
+    vowel_list = ['a','e','i','o','u']
+    alphabet_list = []
+    for i in range(len(alphabet)):
+        alphabet_list.append(alphabet[i])
+    letters_guessed = [] 
     secret_word = choose_word(wordlist)
     hangman(secret_word)
 
