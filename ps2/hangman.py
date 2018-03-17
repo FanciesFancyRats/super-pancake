@@ -256,7 +256,15 @@ def match_with_gaps(my_word, other_word):
         _ , and my_word and other_word are of the same length;
         False otherwise: 
     '''
-
+    match = True
+    if len(my_word) != len(other_word):
+        return False
+    for i in range(len(my_word)):
+        if(my_word[i] == "_") or (my_word[i] == other_word[i]):
+            pass
+        else:
+            match = False
+    return match
 
 
 def show_possible_matches(my_word):
@@ -270,7 +278,11 @@ def show_possible_matches(my_word):
 
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    possible_words = []
+    for i in range(len(wordlist)):
+        if match_with_gaps(my_word, wordlist[i]):
+            possible_words.append(wordlist[i])
+    print (possible_words)
 
 
 
@@ -302,7 +314,101 @@ def hangman_with_hints(secret_word):
     Follows the other limitations detailed in the problem write-up.
     '''
     # FILL IN YOUR CODE HERE AND DELETE "pass"
-    pass
+    letters_display = ''
+    letters_display_list = []
+    guessesLeft = 6
+    avaliable_letters_string = ''
+    warnings = 3
+    secret_list = []
+    letters_guessed = [] 
+    print("Welcome to hangman, I'm thinking of a word that is,", len(secret_word), "letters long.")
+    print("You have", warnings, "warnings left.")
+    while (guessesLeft > 0): 
+        
+        print('-------------------------')
+        print(secret_word)
+        
+
+        for letter in range(len(secret_word)):
+            secret_list.append(secret_word[letter])
+
+
+       
+
+        avaliable_letters = get_available_letters(letters_guessed)
+        avalible_letters_string = ''.join(avaliable_letters)
+        print("Avaliable letters: ", avalible_letters_string)
+
+        print(guessesLeft)
+        guess = input('Please guess a letter: ')
+        guess = guess.lower()
+       
+        if guess in letters_guessed:
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print("You have already guessed: ", guess, letters_display)
+            if warnings > 0:
+                warnings -= 1
+                print("You have", warnings, "warnings left")
+            else:
+                print("You have no warnings left, so you loose one guess")
+                guessesLeft -= 1 
+
+        elif guess == '*':
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            my_word = ''.join(letters_display_list)
+            show_possible_matches(my_word)
+
+        elif not guess in alphabet_list:
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print(guess)
+            print(alphabet_list)
+            print("Guess is not valid, try again.")
+            if warnings > 0:
+                warnings -= 1
+                print("You have", warnings, "warnings left")
+            else:
+                print("You have no warnings left, so you loose one guess")
+                guessesLeft -= 1
+        elif len(guess)  > 1:
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print(guess)
+            print(alphabet_list)
+            print("Guess is not valid, try again.")
+            if warnings > 0:
+                warnings -= 1
+                print("You have", warnings, "warnings left")
+            else:
+                print("You have no warnings left, so you loose one guess")
+                guessesLeft -= 1
+            
+        elif guess in secret_list:
+            letters_guessed.append(guess)
+            print(letters_guessed)
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print("Good guess:", letters_display) 
+        else:
+            letters_guessed.append(guess)
+            print(letters_guessed)
+            letters_display_list = get_guessed_word(secret_word ,letters_guessed)
+            letters_display = ' '.join(letters_display_list)
+            print("Incorrect", letters_display)
+            
+            guessesLeft -= 1
+            if guess in vowel_list:
+                guessesLeft -= 1
+            print(guessesLeft, "guesses left")
+        if not "_" in letters_display_list:
+            print("Congratulations, you win")
+            break
+    if guessesLeft < 1:
+        print("Sorry you lost. The word was: ", secret_word)
+
+
 
 
 
@@ -324,7 +430,10 @@ if __name__ == "__main__":
         alphabet_list.append(alphabet[i])
     letters_guessed = [] 
     secret_word = choose_word(wordlist)
-    hangman(secret_word)
+    #hangman(secret_word)
+    hangman_with_hints(secret_word)
+            
+
 
 ###############
     
